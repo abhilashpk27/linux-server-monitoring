@@ -1,25 +1,25 @@
 #!/bin/bash
 
-echo "================================="
-echo "   Linux Server Monitoring Tool  "
-echo "================================="
+LOGFILE="system-report.log"
 
-echo ""
-echo "CPU Usage:"
-top -bn1 | grep "Cpu"
+echo "=================================" >> $LOGFILE
+echo "Linux Server Monitoring Report" >> $LOGFILE
+echo "Date: $(date)" >> $LOGFILE
+echo "=================================" >> $LOGFILE
 
-echo ""
-echo "Memory Usage:"
-free -m
+echo "CPU Usage:" >> $LOGFILE
+top -bn1 | grep "Cpu" >> $LOGFILE
 
-echo ""
-echo "Disk Usage:"
-df -h
+echo "" >> $LOGFILE
+echo "Memory Usage:" >> $LOGFILE
+free -m >> $LOGFILE
 
-echo ""
-echo "Top 5 Processes:"
-ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -6
+echo "" >> $LOGFILE
+echo "Disk Usage:" >> $LOGFILE
+df -h >> $LOGFILE
 
-echo ""
-echo "Running Services:"
-systemctl list-units --type=service --state=running | head
+echo "" >> $LOGFILE
+echo "Top Processes:" >> $LOGFILE
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -6 >> $LOGFILE
+
+echo "---------------------------------" >> $LOGFILE
